@@ -37,4 +37,12 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntit
     {
         _session.Update(entity);
     }
+
+    //Homework
+    public static T GetNextValue<T>(this ISession session, string sequenceName) where T : struct
+    {
+        var dialect = session.GetSessionImplementation().Factory.Dialect;
+        var sqlQuery = dialect.GetSequenceNextValString(sequenceName);
+        return session.CreateSQLQuery(sqlQuery).UniqueResult<T>();
+    }
 }

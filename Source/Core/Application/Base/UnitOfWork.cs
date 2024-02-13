@@ -44,6 +44,53 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
+    //Homework
+
+    private IRoleRepository _getRoleIdRepository = null;
+    private IRoleRepository _getRoleCodeRepository = null;
+
+    private IPersonRepository _getPersonIdRepository = null;
+    private IPersonRepository _getPersonCodeRepository = null;
+
+
+    public IPersonRepository GetPersonById
+    {
+        get
+        {
+            _getPersonRepository ??= new PersonRepository(_id);
+            return _getPersonIdRepository;
+        }
+    }
+
+    public IPersonRepository GetPersonByCode
+    {
+        get
+        {
+            _getPersonRepository ??= new PersonRepository(_code);
+            return _getPersonCodeRepository;
+        }
+    }
+
+    public IRoleRepository GetRoleById
+    {
+        get
+        {
+            _getRoleRepository ??= new RoleRepository(_id);
+            return _getRoleIdRepository;
+        }
+    }
+
+    public IRoleRepository GetRoleByCode
+    {
+        get
+        {
+            _getRoleRepository ??= new RoleRepository(_code);
+            return _getRoleCodeRepository;
+        }
+    }
+
+
+
     public void Commit()
     {
         if (!_transaction.IsActive)
